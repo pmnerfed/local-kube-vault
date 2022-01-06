@@ -7,8 +7,14 @@
 2. Important concepts in Vault:
 
     - Secret Engines: Secret engines are pluggable components that allow secret management for all kinds of backend services.
-    - Vault runs as a server- and client configurations and only server ever accesses the secret engines and storage backends
 
+3. Points to note
+
+    - Vault runs as a server-client setup and only server ever accesses the secret engines and storage backends.
+    - Vault needs to be initialized on first load and it needs to be unsealed after every restart.
+    - By default, only the key-value the secret engine is enabled and vault can be configured to add in more secret engines and storage backends.
+    - We are using the `Standalone` mode in this configuration, which required a persistent storage mounted to the server.
+    - The `dev` mode should not be used as is only stored the data in-memory and is unsafe overall.
 
 ## Setting up vault to store secrets
 
@@ -38,3 +44,55 @@ helm install vault hashicorp/vault \
 ```
 
 For more indepth configurations have a look at [Vault Helm Configuration](https://www.vaultproject.io/docs/platform/k8s/helm/configuration) page.
+
+After the vaut is run it needs to be initialized with the following:
+
+```bash
+kubectl exec -it vault-o -- vault operator init
+```
+
+By default this generates `5` secret keys and `1` root token and to unseal the default key you need to provide(`threshold`) is `3`. You can change this by providing additional parameters to above command.
+
+The vault is `sealed` after initialization and we need to `unseal` it to be able to use it. This is done by running the following command `3`( default threshold) times and providing different keys each time.
+
+```bash
+vault operator unseal
+# or via kubectl
+kubectl exec -it vault-o -- vault operator unseal
+```
+
+> This can also be done via UI if you enable that in the configuration.
+
+After the vault is unsealed we need to login into the vault using the `root token`. The command for the same is:
+
+```bash
+vault login <Initial_Root_Token>
+```
+
+The `root` user has all the capabilities so it is not a recommended way to access the vault. You should create a new user for general services, and even a new one for every service that wants to access the vault.
+
+For that, first create a new `policy` and then create a new `token` that uses the specified `policy`.
+To create a new `policy` use:
+
+```bash
+vault policy write my-policy - << EOF
+# Dev servers have version 2 of KV secrets engine mounted by default, so will
+# need these paths to grant permissions:
+path "secret/data/*" {
+  capabilities = ["create", "update"]
+}
+
+path "secret/data/foo" {
+  capabilities = ["read"]
+}
+EOF
+```
+> Note: We are passing the policy in `hcl` format directly into the command.
+
+You can consult the [ACL Scetion](https://www.vaultproject.io/docs/secrets/kv/kv-v2#acl-rules) to write the policy.
+
+To create a new `token` using the newly created `policy` use:
+
+```bash
+vault token create -field token -policy=my-policy
+```
