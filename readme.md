@@ -1,5 +1,7 @@
 # HashiCorp Vault
 
+The Vault is a software to centrally manage and control access to secrets that are shared between multiple services and applications. The idea is to offload all the overhead of storing, encrypting, decrypting and even refreshing secrets to the central vault server and provide limited (and even time limited) access to secrets required by applications.
+
 ## Introduction
 
 1. Watch this offical video to learn more about the concept of Vault.
