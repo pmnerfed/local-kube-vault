@@ -5,7 +5,12 @@ The Vault is a software to centrally manage and control access to secrets that a
 ## Introduction
 
 1. Watch this offical video to learn more about the concept of Vault.
-    <p><a href="https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch">Introduction to Vault | Vault - HashiCorp Learn</a></p><p><a href="https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch"><img src="https://embedwistia-a.akamaihd.net/deliveries/c0543132560615aabdf0628234a18c08.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=1563ffe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p>
+
+    [Introduction to Vault | Vault - HashiCorp Learn](https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch)
+    
+    <a href="https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch"><img src="https://embedwistia-a.akamaihd.net/deliveries/c0543132560615aabdf0628234a18c08.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=1563ffe0" width="400" height="225" style="width: 400px; height: 225px;"></a>
+
+    or you can read the [Getting Started Guide](https://learn.hashicorp.com/collections/vault/getting-started) .
 
 2. Important concepts in Vault:
 
@@ -22,7 +27,7 @@ The Vault is a software to centrally manage and control access to secrets that a
 
 ## Setting up vault to store secrets
 
-https://deepsource.io/blog/setup-vault-kubernetes/
+<https://deepsource.io/blog/setup-vault-kubernetes/>
 
 ```bash
 helm repo add hashicorp https://helm.releases.hashicorp.com
@@ -91,9 +96,10 @@ path "secret/data/foo" {
 }
 EOF
 ```
+
 > Note: We are passing the policy in `hcl` format directly into the command.
 
-You can consult the [ACL Scetion](https://www.vaultproject.io/docs/secrets/kv/kv-v2#acl-rules) to write the policy.
+You can consult the [ACL Section](https://www.vaultproject.io/docs/secrets/kv/kv-v2#acl-rules) to write the policy.
 
 To create a new `token` using the newly created `policy` use:
 
@@ -114,3 +120,9 @@ The configuration sets:
 TODOs
 
 - [ ] TLS communication for vault
+
+## References
+
+1. [Getting Started with vault](https://learn.hashicorp.com/collections/vault/getting-started) - Very basics of Vault and setting it up.
+2. [Vault on Kubernetes Deployment Guide](https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide#setup-helm-repo) - Setup vault using vault helm (prebuilt helm chart).
+3. [Vault Helm Configuration](https://www.vaultproject.io/docs/platform/k8s/helm/configuration) - Additional configurations of the vault helm chart.
