@@ -1,12 +1,14 @@
 # HashiCorp Vault
 
-## Resources to know what is Vault
+## Introduction
 
-1. <p><a href="https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch"><img src="https://embedwistia-a.akamaihd.net/deliveries/c0543132560615aabdf0628234a18c08.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=1563ffe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p><p><a href="https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch">Introduction to Vault | Vault - HashiCorp Learn</a></p>
+1. Watch this offical video to learn more about the concept of Vault.
+    <p><a href="https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch">Introduction to Vault | Vault - HashiCorp Learn</a></p><p><a href="https://learn.hashicorp.com/tutorials/vault/getting-started-intro?in=vault%2Fgetting-started&amp;wvideo=v8vcu8xcch"><img src="https://embedwistia-a.akamaihd.net/deliveries/c0543132560615aabdf0628234a18c08.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=1563ffe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p>
 
 2. Important concepts in Vault:
 
-    - Secret Engines: Secret engines are pluggable components that allow secret management for all kinds of backend services.
+    - **Secret Engines** : Secret engines are pluggable components that allow secret management for all kinds of backend services. by default only the `key-value` secret engine is enabled.
+    - **Storage Backends** : Storage backends are pluggable components where all the secrets are stored in an encrypted format and are managed by the vault server.
 
 3. Points to note
 
@@ -96,3 +98,17 @@ To create a new `token` using the newly created `policy` use:
 ```bash
 vault token create -field token -policy=my-policy
 ```
+
+## Configuration
+
+The configuration for our setup is available in `override-values.yml` file in the root directory of the project.
+
+The configuration sets:
+
+- `standalone` mode which needs a persistent storage mounted.
+- `ui` which is accessible at `http://localhost:8200/ui`. For this to work `service` should be enabled and `ServiceType` should be set.
+- `api` which is accessible at `http://localhost:8200`
+
+TODOs
+
+- [ ] TLS communication for vault
