@@ -117,9 +117,12 @@ The configuration sets:
 - `ui` which is accessible at `http://localhost:8200/ui`. For this to work `service` should be enabled and `ServiceType` should be set.
 - `api` which is accessible at `http://localhost:8200`
 
-TODOs
+## Future Ideas and TODOs
 
 - [ ] TLS communication for vault
+- [ ] setup vault with kubernetes to mount secrets directly
+  - <https://deepsource.io/blog/setup-vault-kubernetes/>
+  - <https://devopscube.com/vault-in-kubernetes/>
 
 ## References
 
